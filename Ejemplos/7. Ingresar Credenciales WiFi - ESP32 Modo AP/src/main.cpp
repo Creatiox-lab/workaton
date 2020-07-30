@@ -114,6 +114,9 @@ void setup() {
   // Llamar a rootPage() cuando se ingrese a la página principal
   server.on("/", rootPage);
 
+  WiFi.disconnect(true);
+  WiFi.mode(WIFI_OFF);
+
   // Asociar Callbacks del WiFi
   WiFi.onEvent(callbackWifiConectado, SYSTEM_EVENT_STA_GOT_IP);
   WiFi.onEvent(callbackWifiDesconectado, SYSTEM_EVENT_STA_DISCONNECTED);
@@ -123,6 +126,7 @@ void setup() {
   // Configuración personalizada del Portal
   config.portalTimeout = 60000; // Timeout de 1 minuto
   config.retainPortal = true;   // Mantener portal abierto si no encuentra la red
+  config.autoReconnect = true;  // Intentar reconectar a última red guardada
   portal.config(config);        // Aplicar configuración
 
   // Iniciar conexión a una red o abrir portal
